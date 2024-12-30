@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>圖片循環播放</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        img {
-            width: 80%;
-            height: auto;
-            margin: 20px auto;
-        }
-        #image-container {
-            position: relative;
-            width: 80%;
-            margin: 0 auto;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+      img {
+        width: 80%;
+        height: auto;
+        margin: 20px auto;
+      }
+      #image-container {
+        position: relative;
+        width: 80%;
+        margin: 0 auto;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>圖片循環播放</h1>
     <div id="image-container">
-        <img id="slideshow" src="" alt="圖片載入中...">
+      <img id="slideshow" src="" alt="圖片載入中..." />
     </div>
 
     <script>
-        // 手動列出所有圖片的檔案名稱
-        const imageFolderPath = "./images/images1/";
-        const imageFiles = [
-            "1.jpg", 
-            "2.jpg", 
-            "3.jpg", 
-            "4.jpg", 
-            "5.jpg"
-            // 繼續列出資料夾中的所有圖片
-        ];
+      // 手動列出所有圖片的檔案名稱
+      const imageFolderPath = "./images/images1/";
+      const imageFiles = [
+          "1.jpg",
+          "2.jpg",
+          "3.jpg",
+          "4.jpg",
+          "5.jpg"
+          "6.jpg"
+          "7.jpg"
+          // 繼續列出資料夾中的所有圖片
+      ];
 
-        let currentIndex = 0;
+      let currentIndex = 0;
 
-        function showNextImage() {
-            const imgElement = document.getElementById('slideshow');
-            imgElement.src = imageFolderPath + imageFiles[currentIndex];
-            imgElement.alt = `圖片 ${currentIndex + 1}`;
+      function showNextImage() {
+          const imgElement = document.getElementById('slideshow');
+          imgElement.src = imageFolderPath + imageFiles[currentIndex];
+          imgElement.alt = `圖片 ${currentIndex + 1}`;
 
-            // 更新索引以顯示下一張圖片，循環播放
-            currentIndex = (currentIndex + 1) % imageFiles.length;
-        }
+          // 更新索引以顯示下一張圖片，循環播放
+          currentIndex = (currentIndex + 1) % imageFiles.length;
+      }
 
-        // 每 0.3 秒切換圖片
-        setInterval(showNextImage, 300);
+      // 每 0.3 秒切換圖片
+      setInterval(showNextImage, 300);
 
-        // 初始化顯示第一張圖片
-        window.onload = showNextImage;
+      // 初始化顯示第一張圖片
+      window.onload = showNextImage;
     </script>
-</body>
+  </body>
 </html>
