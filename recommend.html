@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Etc.</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Import Swiper.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+    <!-- Import Google Charts -->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+
+    <!-- Optional: Import jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* 全局設置 */
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        color: #333;
+        background-color: #f8f8f8;
+      }
+
+      /* LOGO 標誌區，置中顯示 */
+      .logo {
+        text-align: center;
+        font-size: 2.5rem;
+        margin: 30px 0 20px;
+      }
+
+      /* 導航連結樣式 */
+      .navbar {
+        justify-content: center; /* 大螢幕置中導航 */
+      }
+      .navbar-toggler {
+        margin-left: auto; /* 右側對齊漢堡按鈕 */
+      }
+      .offcanvas-end {
+        width: 250px; /* 控制展開寬度 */
+      }
+      .nav-link {
+        font-size: 14px;
+        color: #333;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+      .navbar-nav .nav-link {
+        position: relative; /* 為 ::after 提供定位基準 */
+        text-decoration: none; /* 移除預設底線 */
+        color: #333; /* 設定字體顏色 */
+        transition: color 0.3s ease; /* 滑鼠移動時的顏色漸變 */
+      }
+      .navbar-nav .nav-link::after {
+        content: ""; /* 添加偽元素 */
+        position: absolute;
+        bottom: 0px; /* 偽元素位於文字下方 */
+        left: 50%; /* 從中間開始 */
+        width: 0; /* 初始寬度為 0 */
+        height: 4px; /* 設定底線高度 */
+        background-color: #bdc8bc; /* 底線顏色 */
+        transition: width 0.3s ease, left 0.3s ease; /* 動畫效果 */
+      }
+      .navbar-nav .nav-link:hover {
+        color: #657b6e; /* 滑鼠移入時字體顏色改變 */
+      }
+      .navbar-nav .nav-link:hover::after {
+        width: 100%; /* 展開至整個文字寬度 */
+        left: 0; /* 左對齊 */
+      }
+
+      /* 副標題與分隔線樣式 */
+      .sub-title-container {
+        text-align: center;
+        margin-bottom: 45px;
+        max-width: 1400px;
+        margin: 30px auto;
+        position: relative;
+      }
+
+      .sub-title-line {
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        top: 50%;
+        left: 0;
+      }
+
+      .sub-title {
+        font-family: serif;
+        font-size: 1.2rem;
+        color: #666;
+        background: #f8f8f8;
+        display: inline-block;
+        padding: 0 10px;
+        position: relative;
+      }
+
+      /* Contact 頁面樣式 */
+      .content-container input,
+      .content-container textarea {
+        background-color: #f8f8f8;
+        border: 1px solid #dcdcdc;
+        border-radius: 0%;
+      }
+
+      /* Submit 按鈕樣式 */
+      .submit-btn {
+        background-color: #f8f8f8;
+        color: #333;
+        border: 1px solid #dcdcdc;
+        text-transform: uppercase;
+        font-family: serif;
+        border-radius: 0%;
+      }
+
+      .submit-btn.btn-primary:active,
+      .submit-btn.btn-primary:hover {
+        background-color: #657b6e !important; /* 強制使用自定義顏色 */
+        border: 1px solid #657b6e;
+        color: #fff !important;
+      }
+
+      /* 頁腳樣式 */
+      .footer {
+        background-color: #e8eeea;
+        padding: 2rem 0;
+        color: #333;
+      }
+
+      /* RWD 設計 */
+      /* 大螢幕（992px 以上）維持原樣 */
+      @media (min-width: 992px) {
+        .navbar-nav .nav-item {
+          margin: 0 30px; /* 每個導航項目增加更多間距 */
+        }
+
+        .content-container {
+          max-width: 700px; /* 維持寬度 */
+          margin: 0 auto; /* 居中 */
+        }
+        .form-wrapper {
+          margin-left: 30px; /* 保持左側間距 */
+        }
+        .submit-btn {
+          max-width: 300px; /* 維持按鈕最大寬度 */
+        }
+      }
+
+      /* 平板裝置（576px ~ 768px） */
+      @media (max-width: 768px) {
+        .logo {
+          font-size: 2rem;
+        }
+        .navbar-nav .nav-link::after {
+          content: none; /* 移除偽元素 */
+        }
+
+        .card-title {
+          font-size: 0.9rem;
+        }
+        .btn {
+          font-size: 0.8rem;
+        }
+
+        .content-container {
+          max-width: 100%; /* 寬度占滿螢幕 */
+          padding: 0 40px; /* 增加左右內邊距 */
+        }
+        .submit-btn {
+          max-width: 50%; /* 按鈕寬度占滿容器 */
+        }
+        .content-container label {
+          font-size: 14px; /* 字體縮小 */
+        }
+        .content-container input,
+        .content-container textarea {
+          font-size: 14px; /* 輸入框字體縮小 */
+          padding: 15px; /* 減少內邊距 */
+        }
+      }
+
+      /* 超小螢幕（576px 以下） */
+      @media (max-width: 576px) {
+        .logo {
+          font-size: 1.8rem;
+        }
+        .navbar-nav .nav-link::after {
+          content: none; /* 移除偽元素 */
+        }
+
+        .card {
+          max-width: 90%;
+        }
+        .btn {
+          font-size: 0.8rem;
+          padding: 8px 16px;
+        }
+
+        .content-container {
+          max-width: 100%; /* 寬度占滿螢幕 */
+          padding: 0 20px; /* 增加左右內邊距 */
+        }
+        .submit-btn {
+          max-width: 50%; /* 按鈕寬度占滿容器 */
+        }
+        .content-container label {
+          font-size: 12px; /* 字體縮小 */
+        }
+        .content-container input,
+        .content-container textarea {
+          font-size: 12px; /* 輸入框字體縮小 */
+          padding: 20px; /* 減少內邊距 */
+        }
+      }
+      .rating-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .rating-container label {
+        font-size: 2rem;
+        color: #ccc; /* 預設灰色 */
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .rating-container input[type="radio"] {
+        display: none; /* 隱藏原生單選按鈕 */
+      }
+
+      .rating-container label.active {
+        color: #f5a623; /* 點擊後的填滿顏色 */
+      }
+
+      .rating-container label.hover {
+        color: #f5a623; /* 懸停的填滿顏色 */
+      }
+
+      /* Tag 與店家名稱之間的距離 */
+      .badge-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px; /* 增加距離 */
+        margin-bottom: 20px; /* 增加距離與下一部分的分隔 */
+        flex-wrap: wrap; /* 當 tag 過多時自動換行 */
+      }
+
+      /* 修改描述文字的顏色 */
+      .description-box {
+        font-size: 0.9rem;
+        color: #888; /* 修改為深灰色，與標籤區分 */
+        line-height: 1.5; /* 調整行距 */
+        max-height: 100px; /* 限制高度 */
+        overflow-y: auto; /* 啟用垂直滾動條（如果內容過多） */
+        background: none; /* 確保背景透明 */
+        border: none; /* 確保沒有邊框 */
+        padding: 0; /* 移除內邊距 */
+      }
+
+      .card {
+        border-radius: 0; /* 直角樣式 */
+        border: 1px solid #e0e0e0; /* 增加卡片邊框 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 輕微陰影（可選） */
+      }
+
+      .badge {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #333;
+        background-color: #f5f5f5;
+      }
+
+      .icon-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #555;
+        align-items: flex-start; /* 圖示與文字的第一行對齊 */
+      }
+
+      .icon-row i {
+        color: #888;
+      }
+
+      /* 返回按鈕容器樣式 */
+      .back-link-container {
+        margin-top: 40px;
+        text-align: center; /* 置中對齊 */
+        margin-bottom: 20px; /* 與頁尾保持間距 */
+      }
+
+      /* 返回按鈕樣式 */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-family: sans-serif;
+      }
+
+      .back-link:hover {
+        color: #657b6e; /* 懸停時的顏色變化 */
+      }
+
+      /* 箭頭樣式 */
+      .arrow-icon {
+        font-size: 1rem;
+        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="/" style="text-decoration: none; color: inherit">Explore Etc.</a>
+    </div>
+
+    <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <!-- 漢堡按鈕 -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 大螢幕顯示的導航 -->
+        <div
+          class="collapse navbar-collapse d-none d-lg-flex justify-content-center"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="recommend.html">Recommend</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="download.html">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 小螢幕的 Offcanvas -->
+        <div
+          class="offcanvas offcanvas-end d-lg-none"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="recommend.html">Recommend</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="download.html">Download</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 副標題與分隔線 -->
+    <div class="sub-title-container">
+      <div class="sub-title-line"></div>
+      <span class="sub-title">Write down your recommended shop</span>
+    </div>
+
+    <form name="form1" onsubmit="return formresponse();">
+      <div class="form-wrapper">
+        <div class="content-container my-5">
+          <div class="mt-4">
+            <!-- 店家名稱 -->
+            <label for="storeName" class="form-label">Store Name *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="storeName"
+              placeholder="Enter the store name"
+              required
+            />
+          </div>
+          <!-- 類型 (下拉選單) -->
+          <div class="mt-4">
+            <label for="category" class="form-label">Category *</label>
+            <select class="form-select" id="category" required>
+              <option value="飲料店">飲料店</option>
+              <option value="咖啡廳">咖啡廳</option>
+              <option value="診所">診所</option>
+              <option value="來一點特別">來一點特別</option>
+              <option value="日常可吃">日常可吃</option>
+              <option value="宵夜">宵夜</option>
+              <option value="學校附近酒吧">學校附近酒吧</option>
+              <option value="忠孝夜市">忠孝夜市</option>
+              <option value="甜點">甜點</option>
+              <option value="伴手禮">伴手禮</option>
+              <option value="早餐">早餐</option>
+              <option value="夜景咖啡廳">夜景咖啡廳</option>
+            </select>
+          </div>
+          <!-- 地址 -->
+          <div class="mt-4">
+            <label for="address" class="form-label">Address *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              placeholder="Enter the address"
+              required
+            />
+          </div>
+          <!-- 聯絡電話 -->
+          <div class="mt-4">
+            <label for="contactNumber" class="form-label">Contact Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="contactNumber"
+              placeholder="Enter the contact number"
+            />
+          </div>
+          <!-- 店家描述 -->
+          <div class="mt-4">
+            <label for="description" class="form-label">Description *</label>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="5"
+              placeholder="Enter a brief description"
+              required
+            ></textarea>
+          </div>
+          <!-- 評分 (幾顆星) -->
+          <div class="mt-4">
+            <label class="form-label">Rating *</label>
+            <div class="rating-container">
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1">★</label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2">★</label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3">★</label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4">★</label>
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label for="star5">★</label>
+            </div>
+          </div>
+          <!-- 提交按鈕 -->
+          <div class="text-center mt-4">
+            <button type="submit" class="submit-btn btn btn-primary w-100">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- 副標題與分隔線 -->
+    <div class="sub-title-container">
+      <div class="sub-title-line"></div>
+      <span class="sub-title">Recommendations from Others</span>
+    </div>
+
+    <div class="container my-5">
+      <div id="cards-container" class="row"></div>
+    </div>
+
+    <!-- Back Link at the Bottom -->
+    <div class="back-link-container">
+      <a href="index.html" class="back-link">
+        <span class="arrow-icon">←</span>BACK TO MAIN PAGE
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container text-center">
+        <p>© 2025 Explore Etc.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(
+          ".rating-container input[type='radio']"
+        );
+        const labels = document.querySelectorAll(".rating-container label");
+
+        // 滑鼠懸停效果
+        labels.forEach((label, index) => {
+          label.addEventListener("mouseenter", () => {
+            // 為當前星星及之前的星星添加 "hover" 樣式
+            for (let i = 0; i <= index; i++) {
+              labels[i].classList.add("hover");
+            }
+          });
+
+          label.addEventListener("mouseleave", () => {
+            // 移除所有的 "hover" 樣式
+            labels.forEach((label) => label.classList.remove("hover"));
+          });
+        });
+
+        // 點擊效果
+        stars.forEach((star, index) => {
+          star.addEventListener("change", () => {
+            // 清除所有的 "active" 樣式
+            labels.forEach((label) => label.classList.remove("active"));
+
+            // 為當前星星及之前的星星添加 "active" 樣式
+            for (let i = 0; i <= index; i++) {
+              labels[i].classList.add("active");
+            }
+          });
+        });
+
+        const cardsContainer = document.getElementById("cards-container");
+
+        const url =
+          "https://docs.google.com/spreadsheets/d/1s94RfjV4w56Ee0i6m_0irgVu0-Bi4ssJeq07zYmH7rQ/gviz/tq?sheet=工作表1";
+
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(init);
+
+        function init() {
+          const query = new google.visualization.Query(url);
+          query.setQuery("select *"); // 獲取試算表所有數據
+          query.send(processSheetsData);
+        }
+
+        function processSheetsData(response) {
+          if (response.isError()) {
+            console.error("Error loading data:", response.getMessage());
+            return;
+          }
+
+          const data = response.getDataTable();
+          const rows = data.getNumberOfRows();
+
+          for (let r = 0; r < rows; r++) {
+            const row = {
+              Timestamp: data.getFormattedValue(r, 0),
+              StoreName: data.getFormattedValue(r, 1),
+              Category: data.getFormattedValue(r, 2),
+              Address: data.getFormattedValue(r, 3),
+              ContactNumber: data.getFormattedValue(r, 4),
+              Description: data.getFormattedValue(r, 5),
+              Rating: data.getFormattedValue(r, 6),
+            };
+            createCard(row);
+          }
+        }
+
+        function createCard(row) {
+          const card = document.createElement("div");
+          card.className = "col-lg-4 col-md-6 col-12";
+          card.style.marginBottom = "20px"; // 增加上下間距
+
+          card.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <!-- 店家名稱 -->
+                  <h5 class="card-title">${row.StoreName}</h5>
+          
+                  <!-- 類別 (tag) -->
+                  <div class="badge-container">
+                    <span class="badge badge-category"># ${row.Category}</span>
+                  </div>
+          
+                  <!-- Address 和 Contact 使用 icon -->
+                  <div class="icon-row">
+                    <i class="bi bi-geo-alt-fill"></i> ${row.Address || "N/A"}
+                  </div>
+                  <div class="icon-row">
+                    <i class="bi bi-telephone-fill"></i> ${
+                      row.ContactNumber || "N/A"
+                    }
+                  </div>
+          
+                  <!-- Rating -->
+                  <div class="icon-row">
+                    <i class="bi bi-star-fill"></i> ${generateStars(
+                      row.Rating
+                    )} (${row.Rating || "N/A"})
+                  </div>
+          
+                  <!-- Description -->
+                  <div>
+                     <div class="icon-row">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    <div class="description-box">
+                        ${row.Description || "No description available."}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+          cardsContainer.appendChild(card);
+        }
+
+        // 生成評分星星
+        function generateStars(rating) {
+          let starsHtml = '<span class="d-flex align-items-center">';
+          const fullStars = Math.floor(rating);
+          const halfStar = rating % 1 >= 0.5;
+
+          for (let i = 1; i <= fullStars; i++) {
+            starsHtml += '<i class="bi bi-star-fill text-warning"></i>';
+          }
+
+          if (halfStar) {
+            starsHtml += '<i class="bi bi-star-half text-warning"></i>';
+          }
+
+          for (let i = fullStars + (halfStar ? 1 : 0); i < 5; i++) {
+            starsHtml += '<i class="bi bi-star text-secondary"></i>';
+          }
+
+          starsHtml += "</span>";
+          return starsHtml;
+        }
+      });
+
+      function formresponse() {
+        const storeName = document.getElementById("storeName").value;
+        const category = document.getElementById("category").value;
+        const address = document.getElementById("address").value;
+        const contactNumber = document.getElementById("contactNumber").value;
+        const description = document.getElementById("description").value;
+        const rating = document.querySelector(
+          'input[name="rating"]:checked'
+        )?.value;
+
+        if (!rating) {
+          alert("至少要輸入一顆星");
+          return false;
+        }
+
+        const formUrl =
+          "https://docs.google.com/forms/d/e/1FAIpQLSfVPQJoBgXQ2wSoY-b3FoO6ODWr2jBLZSKBIGYrMJ-P6ZPCYQ/formResponse";
+        const fullUrl =
+          `${formUrl}?entry.299825925=${encodeURIComponent(storeName)}` +
+          `&entry.2053741337=${encodeURIComponent(category)}` +
+          `&entry.1781185018=${encodeURIComponent(address)}` +
+          `&entry.605403391=${encodeURIComponent(contactNumber)}` +
+          `&entry.359526902=${encodeURIComponent(rating)}` +
+          `&entry.819933212=${encodeURIComponent(description)}`;
+
+        // 使用 Fetch 提交
+        fetch(fullUrl, { method: "GET", mode: "no-cors" })
+          .then(() => {
+            alert("Your recommendation has been successfully submitted!");
+          })
+          .catch((error) => {
+            console.error("Submission failed:", error);
+            alert("Submission failed. Please try again later.");
+          });
+        return false; // 防止表單的默認提交
+      }
+    </script>
+  </body>
+</html>

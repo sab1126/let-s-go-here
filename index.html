@@ -3,62 +3,707 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>圖片循環播放</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-      }
-      img {
-        width: 80%;
-        height: auto;
-        margin: 20px auto;
-      }
-      #image-container {
-        position: relative;
-        width: 80%;
-        margin: 0 auto;
-      }
-    </style>
+    <title>Explore Etc.</title>
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <!-- Import Swiper.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+    <!-- Import Google Charts -->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+
+    <!-- Optional: Import jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <h1>圖片循環播放</h1>
-    <div id="image-container">
-      <img id="slideshow" src="" alt="圖片載入中..." />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="/" style="text-decoration: none; color: inherit">Explore Etc.</a>
+    </div>
+
+    <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <!-- 漢堡按鈕 -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 大螢幕顯示的導航 -->
+        <div
+          class="collapse navbar-collapse d-none d-lg-flex justify-content-center"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="recommend.html">Recommend</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="download.html">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 小螢幕的 Offcanvas -->
+        <div
+          class="offcanvas offcanvas-end d-lg-none"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="recommend.html">Recommend</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="download.html">Download</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 副標題與分隔線 -->
+    <div class="sub-title-container">
+      <div class="sub-title-line"></div>
+      <span class="sub-title">A World of Recommendations</span>
+    </div>
+
+    <div class="swiper-container">
+      <div class="swiper-wrapper" id="image-slider">
+        <!-- Slides will be dynamically added here -->
+      </div>
+      <!-- Optional Navigation Buttons -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- 副標題與分隔線 -->
+    <div class="sub-title-container">
+      <div class="sub-title-line"></div>
+      <span class="sub-title">Find Your Next Destination</span>
+    </div>
+
+    <div class="controls-container">
+      <div class="controls">
+        <!-- 按鈕將在 JavaScript 中動態生成 -->
+      </div>
+    </div>
+
+    <div id="cards-container" class="row">
+      <!-- Cards will be dynamically added here -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container text-center">
+        <p>© 2025 Explore Etc.</p>
+      </div>
+    </footer>
+
+    <!-- Swiper Slider Container -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper" id="image-slider">
+        <!-- Images will be dynamically loaded here -->
+      </div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
 
     <script>
-      // 手動列出所有圖片的檔案名稱
-      const imageFolderPath = "./images/images1/";
-      const imageFiles = [
-          "1.jpg",
-          "2.jpg",
-          "3.jpg",
-          "4.jpg",
-          "5.jpg",
-          "6.jpg",
-          "7.jpg"
-          // 繼續列出資料夾中的所有圖片
-      ];
+      let title = [];
+      let image = [];
+      let intro = [];
+      const csvData = [];
+      document.addEventListener("DOMContentLoaded", function () {
+        // Dynamically load images from ./images/images1/
+        const imageFolder = "./images/images1/";
+        const imageSlider = document.getElementById("image-slider");
+        const imageFiles = []; // Initialize empty array to hold image filenames
 
-      let currentIndex = 0;
+        // Load CSV Data
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(init);
 
-      function showNextImage() {
-          const imgElement = document.getElementById('slideshow');
-          imgElement.src = imageFolderPath + imageFiles[currentIndex];
-          imgElement.alt = `圖片 ${currentIndex + 1}`;
+        function init() {
+          var url =
+            "https://docs.google.com/spreadsheets/d/1NKkaTKG75UbrrCsmabqK3qwRd2MmyVs0/gviz/tq?sheet=工作表1";
+          var query = new google.visualization.Query(url);
+          query.setQuery("select *");
+          query.send(processSheetsData);
+        }
 
-          // 更新索引以顯示下一張圖片，循環播放
-          currentIndex = (currentIndex + 1) % imageFiles.length;
+        function processSheetsData(response) {
+          var data = response.getDataTable();
+          var rows = data.getNumberOfRows();
+          const cardsContainer = document.getElementById("cards-container");
+
+          // Dynamically populate imageFiles based on CSV row count
+          for (let i = 1; i <= rows; i++) {
+            imageFiles.push(`${i}.jpg`);
+          }
+
+          // Add images to the slider dynamically
+          imageFiles.forEach((file) => {
+            const slide = document.createElement("div");
+            slide.className = "swiper-slide";
+            slide.innerHTML = `<img src="${
+              imageFolder + file
+            }"alt="Image" style="margin: 0 auto; display: block;">`;
+            imageSlider.appendChild(slide);
+          });
+
+          // Initialize Swiper
+          new Swiper(".swiper-container", {
+            loop: true,
+            autoplay: {
+              delay: 2000,
+              disableOnInteraction: false,
+            },
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+
+          cardsContainer.style.paddingLeft = "200px"; // Leave space on the left
+          cardsContainer.style.paddingRight = "200px"; // Leave space on the right
+
+          function createFilterButtonsFromSecondSheet() {
+            const url =
+              "https://docs.google.com/spreadsheets/d/1wsLdl5cE_wO2q33gEfcQP0c2M_sn8hsw/gviz/tq?sheet=工作表1";
+            const query = new google.visualization.Query(url);
+
+            query.setQuery("select B, C"); // 讀取第二欄 (Category) 和第三欄
+            query.send((response) => {
+              if (response.isError()) {
+                console.error(
+                  "Error loading the second sheet:",
+                  response.getMessage()
+                );
+                return;
+              }
+
+              const data = response.getDataTable();
+              const rows = data.getNumberOfRows();
+              const uniqueCategories = new Set();
+              const categoryContentMap = new Map();
+
+              console.log("Raw Data from Second Sheet:", data); // 檢查原始數據表
+              console.log("Total Rows:", rows); // 檢查行數
+
+              // 遍歷所有行，跳過第一行 (欄位名稱)
+              for (let i = 0; i < rows; i++) {
+                const category = data.getValue(i, 0);
+                const content = data.getValue(i, 1); // 第三欄 (Content)
+                if (category) {
+                  uniqueCategories.add(category); // 收集唯一類別
+                  categoryContentMap.set(category, content); // 將類別與內容映射
+                }
+              }
+
+              // 將集合轉為陣列並創建按鈕
+              const controlsContainer = document.querySelector(".controls");
+
+              // 清空原有按鈕
+              controlsContainer.innerHTML = "";
+
+              // 添加 "All" 按鈕
+              const allButton = document.createElement("button");
+              allButton.className = "btn filter";
+              allButton.setAttribute("data-filter", "all");
+              allButton.textContent = "All";
+              controlsContainer.appendChild(allButton);
+
+              // 動態創建篩選按鈕
+              uniqueCategories.forEach((category) => {
+                const categoryButton = document.createElement("button");
+                categoryButton.className = "btn filter";
+                categoryButton.setAttribute("data-filter", category);
+                categoryButton.textContent = category;
+                controlsContainer.appendChild(categoryButton);
+              });
+
+              // 顯示類別內容的容器 (位於 controls 下方)
+              const categoryContentContainer = document.createElement("div");
+              categoryContentContainer.className = "category-content";
+              categoryContentContainer.style.marginTop = "60px";
+              categoryContentContainer.style.textAlign = "center";
+              categoryContentContainer.style.marginBottom = "60px";
+              categoryContentContainer.style.fontSize = "18px"; // 字體大小
+              categoryContentContainer.style.fontFamily = "'Georgia', serif"; // 字體系列（有引用感的字體）
+              categoryContentContainer.style.color = "#555"; // 字體顏色
+              categoryContentContainer.style.fontStyle = "italic"; // 字體樣式 (斜體，可選)
+
+              controlsContainer.insertAdjacentElement(
+                "afterend",
+                categoryContentContainer
+              );
+
+              // 添加篩選邏輯
+              const buttons = controlsContainer.querySelectorAll(".btn.filter");
+              buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                  // 移除其他按鈕的 active 樣式
+                  buttons.forEach((btn) => btn.classList.remove("active"));
+
+                  // 為當前按鈕添加 active 樣式
+                  button.classList.add("active");
+
+                  // 獲取篩選值
+                  const filterValue = button.getAttribute("data-filter");
+
+                  // 清空卡片容器
+                  const cardsContainer =
+                    document.getElementById("cards-container");
+                  cardsContainer.innerHTML = "";
+
+                  // 篩選並顯示卡片
+                  if (filterValue === "all") {
+                    csvData.forEach((row) => createCard(row));
+                  } else {
+                    const filteredData = csvData.filter(
+                      (row) => row.Category === filterValue
+                    );
+                    categoryContentContainer.textContent =
+                      categoryContentMap.get(filterValue);
+                    filteredData.forEach((row) => createCard(row));
+                  }
+                });
+              });
+            });
+          }
+
+          function generateStars(rating) {
+            let starsHtml = '<div class="d-flex align-items-center">';
+
+            for (let i = 1; i <= 5; i++) {
+              if (rating >= i) {
+                // 滿星
+                starsHtml += '<i class="material-icons text-warning">star</i>'; // Material Icons 滿星
+              } else if (rating > i - 1) {
+                // 半星
+                starsHtml +=
+                  '<i class="material-icons text-warning">star_half</i>'; // Material Icons 半星
+              } else {
+                // 空星
+                starsHtml +=
+                  '<i class="material-icons text-secondary">star_border</i>'; // Material Icons 空星
+              }
+            }
+
+            starsHtml += "</div>";
+            return starsHtml;
+          }
+
+          function createCard(row) {
+            const card = document.createElement("div");
+            card.className = "col-lg-4 col-md-6 col-12"; // RWD: 大螢幕 3 列, 中螢幕 2 列, 小螢幕 1 列
+
+            // 控制左右和上下的間距
+            card.style.marginBottom = "20px"; // 增加上下間距
+
+            card.innerHTML = `
+              <div class="card h-100 shadow-lg border-0" style="max-width: 80%; margin: auto;"> 
+                <div class="position-relative">
+                  <!-- 圖片 -->
+                  <div class="ratio ratio-16x9">
+                    <img src="${imageFolder}${row.RowNumber}.jpg" 
+                         class="card-img-top" 
+                         alt="${row.Name}" 
+                         style="object-fit: cover;"> <!-- 使用 Bootstrap ratio 控制比例 -->
+                  </div>
+                  <!-- 店家名稱 -->
+                  <div class="position-absolute bottom-0 start-0 w-100 px-3 py-2" style="background: rgba(0, 0, 0, 0.5); color: white;">
+                    <h5 class="mb-0 text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${
+                      row.Name
+                    }">
+                      ${row.Name}
+                    </h5>
+                  </div>
+                </div>
+                <!-- 卡片內容 -->
+                <div class="card-body text-center">
+                  <!-- 評分與評論 -->
+                  <div class="d-flex flex-column align-items-center mb-3">
+                    <span class="d-inline-flex align-items-center gap-1">
+                      ${generateStars(row.Rating)}
+                      <span class="text-muted small">(${row.Rating}) • ${
+              row.ReviewCount
+            }</span>
+                    </span>
+                  </div>
+                  <!-- 類別與區域 -->
+                  <div class="mt-3">
+                <!-- 類別：自訂灰色 -->
+                <span class="badge badge-gray me-3"># ${row.Category}</span> 
+                <!-- 地區：自訂綠色 -->
+                <span class="badge badge-green"># ${row.Region}</span>
+                </div>
+
+
+                </div>
+                <!-- 按鈕區域 -->
+                <div class="card-footer text-center bg-white border-0">
+        
+                    <a href="details.html?RowNumber=${
+                      row.RowNumber
+                    }" target="_blank" class="btn custom-btn">View Details</a>
+
+                </div>
+              </div>
+            `;
+
+            // 將卡片加入到父容器
+            cardsContainer.appendChild(card);
+          }
+
+          function generateCategoryAndRegionList(csvData) {
+            // Initialize empty sets to store unique categories and regions
+            const uniqueCategories = new Set();
+            const uniqueRegions = new Set();
+
+            // Iterate through each row of the CSV data
+            csvData.forEach((row) => {
+              // Add Category and Region to their respective sets
+              if (row.Category) uniqueCategories.add(row.Category);
+              if (row.Region) uniqueRegions.add(row.Region);
+            });
+
+            // Convert sets to arrays and return them
+            return {
+              categories: Array.from(uniqueCategories),
+              regions: Array.from(uniqueRegions),
+            };
+          }
+
+          // Populate data and cards
+          for (let r = 0; r < rows; r++) {
+            const row = {
+              RowNumber: data.getFormattedValue(r, 0),
+              Category: data.getFormattedValue(r, 1),
+              Name: data.getFormattedValue(r, 2),
+              Address: data.getFormattedValue(r, 3),
+              Region: data.getFormattedValue(r, 4),
+              PriceRange: data.getFormattedValue(r, 7),
+              Rating: data.getFormattedValue(r, 8),
+              ReviewCount: data.getFormattedValue(r, 9),
+            };
+            createCard(row);
+            csvData.push(row);
+          }
+          const lists = generateCategoryAndRegionList(csvData);
+          console.log("Unique Categories:", lists.categories);
+          console.log("Unique Regions:", lists.regions);
+          createFilterButtonsFromSecondSheet();
+        }
+      });
+    </script>
+
+    <style>
+      /* 全局設置 */
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden; /* 禁止水平滾動條 */
+        font-family: "Arial", sans-serif;
+        color: #333;
+        background-color: #f8f8f8;
       }
 
-      // 每 0.3 秒切換圖片
-      setInterval(showNextImage, 300);
+      * {
+        box-sizing: inherit;
+      }
 
-      // 初始化顯示第一張圖片
-      window.onload = showNextImage;
-    </script>
+      /* LOGO 標誌區，置中顯示 */
+      .logo {
+        text-align: center;
+        font-size: 2.5rem;
+        margin: 30px 0 20px;
+      }
+
+      /* 導航連結樣式 */
+      .navbar {
+        justify-content: center; /* 大螢幕置中導航 */
+      }
+      .navbar-toggler {
+        margin-left: auto; /* 右側對齊漢堡按鈕 */
+      }
+      .offcanvas-end {
+        width: 250px; /* 控制展開寬度 */
+      }
+      .nav-link {
+        font-size: 14px;
+        color: #333;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+      .navbar-nav .nav-link {
+        position: relative; /* 為 ::after 提供定位基準 */
+        text-decoration: none; /* 移除預設底線 */
+        color: #333; /* 設定字體顏色 */
+        transition: color 0.3s ease; /* 滑鼠移動時的顏色漸變 */
+      }
+      .navbar-nav .nav-link::after {
+        content: ""; /* 添加偽元素 */
+        position: absolute;
+        bottom: 0px; /* 偽元素位於文字下方 */
+        left: 50%; /* 從中間開始 */
+        width: 0; /* 初始寬度為 0 */
+        height: 4px; /* 設定底線高度 */
+        background-color: #bdc8bc; /* 底線顏色 */
+        transition: width 0.3s ease, left 0.3s ease; /* 動畫效果 */
+      }
+      .navbar-nav .nav-link:hover {
+        color: #657b6e; /* 滑鼠移入時字體顏色改變 */
+      }
+      .navbar-nav .nav-link:hover::after {
+        width: 100%; /* 展開至整個文字寬度 */
+        left: 0; /* 左對齊 */
+      }
+
+      /* 副標題與分隔線樣式 */
+      .sub-title-container {
+        text-align: center;
+        margin-bottom: 45px;
+        max-width: 1400px;
+        margin: 30px auto;
+        position: relative;
+      }
+
+      .sub-title-line {
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        top: 50%;
+        left: 0;
+      }
+
+      .sub-title {
+        font-family: serif;
+        font-size: 1.2rem;
+        color: #666;
+        background: #f8f8f8;
+        display: inline-block;
+        padding: 0 10px;
+        position: relative;
+      }
+      /* 確保 controls 具備 RWD 設計 */
+      .controls {
+        flex-wrap: wrap; /* 當按鈕寬度超出容器時，自動換行 */
+        justify-content: center; /* 按鈕在每行居中 */
+      }
+
+      /* 商品卡片樣式 */
+      .card {
+        text-align: center;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .card-title {
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      .card-text {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* 頁腳樣式 */
+      .footer {
+        background-color: #e8eeea;
+        padding: 2rem 0;
+        color: #333;
+      }
+
+      /* RWD 設計 */
+      @media (min-width: 992px) {
+        .navbar-nav .nav-item {
+          margin: 0 30px; /* 每個導航項目增加更多間距 */
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo {
+          font-size: 2rem;
+        }
+        .navbar-nav .nav-link::after {
+          content: none; /* 移除偽元素 */
+        }
+
+        .card-title {
+          font-size: 0.9rem;
+        }
+
+        .btn {
+          font-size: 0.8rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .logo {
+          font-size: 1.8rem;
+        }
+        .navbar-nav .nav-link::after {
+          content: none; /* 移除偽元素 */
+        }
+
+        .card {
+          max-width: 90%;
+        }
+
+        .btn {
+          font-size: 0.8rem;
+          padding: 8px 16px;
+        }
+      }
+
+      /* Swiper 容器設置 */
+      .swiper-container {
+        position: relative;
+      }
+      /* 圖片樣式設置 */
+      .swiper-slide img {
+        width: 50%; /* 寬度為容器的 50% */
+        aspect-ratio: 16 / 9;
+        margin: 0 auto; /* 圖片水平居中 */
+        display: block; /* 設置為塊級元素 */
+      }
+
+      /* 左箭頭定位 */
+      .swiper-button-prev {
+        transform: translateY(-45%); /* 使箭頭位置精確在容器的中間 */
+        left: calc(20%); /* 20% 是圖片左邊距位置，調整 -30px 靠近圖片 */
+        color: gray; /* 設置箭頭為灰色 */
+      }
+
+      /* 右箭頭定位 */
+      .swiper-button-next {
+        transform: translateY(-45%); /* 使箭頭位置精確在容器的中間 */
+        right: calc(20%); /* 20% 是圖片右邊距位置，調整 -30px 靠近圖片 */
+        color: gray; /* 設置箭頭為灰色 */
+      }
+
+      .card-img-top {
+        border-radius: 0; /* 圖片無圓角 */
+      }
+
+      .custom-btn {
+        background-color: #e8eeea !important; /* 強制使用自定義顏色 */
+        text-transform: uppercase;
+        font-family: serif;
+        border-radius: 0%;
+        transition: all 0.3s ease; /* 添加平滑過渡效果 */
+        width: 100%; /* 設置按鈕寬度填滿容器 */
+      }
+
+      .custom-btn:hover {
+        background-color: #657b6e !important; /* 強制使用自定義顏色 */
+        border: 1px solid #657b6e;
+        color: #fff !important;
+      }
+
+      .custom-btn:focus {
+        outline: none; /* 移除點擊時的邊框 */
+        background-color: #657b6e; /* 點擊時的背景色 */
+        color: white; /* 點擊時的文字顏色 */
+      }
+
+      .badge-gray {
+        background-color: #eaeaea; /* 更簡約的灰色 */
+        color: #333; /* 深色文字 */
+        padding: 10px; /* 增加內邊距，讓框框更大 */
+        border-radius: 0%;
+      }
+
+      .badge-green {
+        background-color: #eaeaea; /* 更簡約的灰色 */
+        color: #333; /* 白色文字 */
+        padding: 10px; /* 增加內邊距，讓框框更大 */
+        border-radius: 0%;
+      }
+
+      .card {
+        transition: transform 0.2s ease; /* 平滑過渡效果 */
+      }
+
+      .card:hover {
+        transform: scale(0.95); /* 懸停時縮放效果 */
+      }
+
+      .controls {
+        display: flex; /* 啟用 flexbox */
+        justify-content: center; /* 水平置中 */
+        align-items: center; /* 垂直置中（如果需要） */
+        gap: 10px; /* 按鈕之間的間距 */
+        margin: 20px 0; /* 上下增加外邊距 */
+        margin-bottom: 45px;
+      }
+
+      .controls .btn {
+        border-radius: 0%; /* 按鈕無圓角 */
+        transition: transform 0.3s ease; /* 平滑過渡效果 */
+      }
+
+      .controls .btn:hover {
+        transform: scale(1.5); /* 懸停時縮放效果 */
+      }
+    </style>
   </body>
 </html>

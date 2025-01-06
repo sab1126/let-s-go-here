@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Etc.</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Import Google Charts -->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+
+    <!-- Optional: Import jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+      /* 全局設置 */
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        color: #333;
+        background-color: #f8f8f8;
+      }
+
+      /* LOGO 標誌區，置中顯示 */
+      .logo {
+        text-align: center;
+        font-size: 2.5rem;
+        margin: 30px 0 20px;
+      }
+
+      /* 導航連結樣式 */
+      .navbar {
+        justify-content: center; /* 大螢幕置中導航 */
+      }
+      .navbar-toggler {
+        margin-left: auto; /* 右側對齊漢堡按鈕 */
+      }
+      .offcanvas-end {
+        width: 250px; /* 控制展開寬度 */
+      }
+      .nav-link {
+        font-size: 14px;
+        color: #333;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+      .navbar-nav .nav-link {
+        position: relative; /* 為 ::after 提供定位基準 */
+        text-decoration: none; /* 移除預設底線 */
+        color: #333; /* 設定字體顏色 */
+        transition: color 0.3s ease; /* 滑鼠移動時的顏色漸變 */
+      }
+      .navbar-nav .nav-link::after {
+        content: ""; /* 添加偽元素 */
+        position: absolute;
+        bottom: 0px; /* 偽元素位於文字下方 */
+        left: 50%; /* 從中間開始 */
+        width: 0; /* 初始寬度為 0 */
+        height: 4px; /* 設定底線高度 */
+        background-color: #bdc8bc; /* 底線顏色 */
+        transition: width 0.3s ease, left 0.3s ease; /* 動畫效果 */
+      }
+      .navbar-nav .nav-link:hover {
+        color: #657b6e; /* 滑鼠移入時字體顏色改變 */
+      }
+      .navbar-nav .nav-link:hover::after {
+        width: 100%; /* 展開至整個文字寬度 */
+        left: 0; /* 左對齊 */
+      }
+
+      /* 副標題與分隔線樣式 */
+      .sub-title-container {
+        text-align: center;
+        margin-bottom: 45px;
+        max-width: 1400px;
+        margin: 30px auto;
+        position: relative;
+      }
+
+      .sub-title-line {
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        top: 50%;
+        left: 0;
+      }
+
+      .sub-title {
+        font-family: serif;
+        font-size: 1.2rem;
+        color: #666;
+        background: #f8f8f8;
+        display: inline-block;
+        padding: 0 10px;
+        position: relative;
+      }
+
+      /* 頁腳樣式 */
+      .footer {
+        background-color: #e8eeea;
+        padding: 2rem 0;
+        color: #333;
+      }
+
+      /* RWD 設計 */
+      /* 大螢幕（992px 以上）維持原樣 */
+      @media (min-width: 992px) {
+        .navbar-nav .nav-item {
+          margin: 0 30px; /* 每個導航項目增加更多間距 */
+        }
+
+        .content-container {
+          max-width: 700px; /* 維持寬度 */
+          margin: 0 auto; /* 居中 */
+        }
+        .form-wrapper {
+          margin-left: 30px; /* 保持左側間距 */
+        }
+        .submit-btn {
+          max-width: 300px; /* 維持按鈕最大寬度 */
+        }
+      }
+
+      /* 平板裝置（576px ~ 768px） */
+      @media (max-width: 768px) {
+        .logo {
+          font-size: 2rem;
+        }
+        .navbar-nav .nav-link::after {
+          content: none; /* 移除偽元素 */
+        }
+
+        .card-title {
+          font-size: 0.9rem;
+        }
+        .btn {
+          font-size: 0.8rem;
+        }
+
+        .content-container {
+          max-width: 100%; /* 寬度占滿螢幕 */
+          padding: 0 40px; /* 增加左右內邊距 */
+        }
+        .submit-btn {
+          max-width: 50%; /* 按鈕寬度占滿容器 */
+        }
+        .content-container label {
+          font-size: 14px; /* 字體縮小 */
+        }
+        .content-container input,
+        .content-container textarea {
+          font-size: 14px; /* 輸入框字體縮小 */
+          padding: 15px; /* 減少內邊距 */
+        }
+      }
+
+      /* 超小螢幕（576px 以下） */
+      @media (max-width: 576px) {
+        .logo {
+          font-size: 1.8rem;
+        }
+        .navbar-nav .nav-link::after {
+          content: none; /* 移除偽元素 */
+        }
+
+        .card {
+          max-width: 90%;
+        }
+        .btn {
+          font-size: 0.8rem;
+          padding: 8px 16px;
+        }
+
+        .content-container {
+          max-width: 100%; /* 寬度占滿螢幕 */
+          padding: 0 20px; /* 增加左右內邊距 */
+        }
+        .submit-btn {
+          max-width: 50%; /* 按鈕寬度占滿容器 */
+        }
+        .content-container label {
+          font-size: 12px; /* 字體縮小 */
+        }
+        .content-container input,
+        .content-container textarea {
+          font-size: 12px; /* 輸入框字體縮小 */
+          padding: 20px; /* 減少內邊距 */
+        }
+      }
+
+      #demo {
+        max-width: 90%;
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+
+      .download-btn {
+        border: 1px solid #dcdcdc;
+        font-family: serif;
+        padding: 8px 100px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border-radius: 0%;
+      }
+
+      .download-btn.btn-primary:active,
+      .download-btn.btn-primary:hover {
+        background-color: #657b6e !important; /* 強制使用自定義顏色 */
+        border: 1px solid #657b6e;
+        color: #fff !important;
+      }
+
+      /* 返回按鈕容器樣式 */
+      .back-link-container {
+        margin-top: 40px;
+        text-align: center; /* 置中對齊 */
+        margin-bottom: 20px; /* 與頁尾保持間距 */
+      }
+
+      /* 返回按鈕樣式 */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-family: sans-serif;
+      }
+
+      .back-link:hover {
+        color: #657b6e; /* 懸停時的顏色變化 */
+      }
+
+      /* 箭頭樣式 */
+      .arrow-icon {
+        font-size: 1rem;
+        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="/" style="text-decoration: none; color: inherit">Explore Etc.</a>
+    </div>
+
+    <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <!-- 漢堡按鈕 -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 大螢幕顯示的導航 -->
+        <div
+          class="collapse navbar-collapse d-none d-lg-flex justify-content-center"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="recommend.html">Recommend</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="download.html">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 小螢幕的 Offcanvas -->
+        <div
+          class="offcanvas offcanvas-end d-lg-none"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="recommend.html">Recommend</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="download.html">Download</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 副標題與分隔線 -->
+    <div class="sub-title-container">
+      <div class="sub-title-line"></div>
+      <span class="sub-title"
+        >Cick the button on the right to download the list you selected</span
+      >
+    </div>
+
+    <!-- 表格容器 -->
+    <div id="demo"></div>
+
+    <!-- 下載按鈕 -->
+    <div class="download-btn-container text-center">
+      <button id="download-btn" class="download-btn btn-primary">
+        下載表格
+      </button>
+    </div>
+
+    <!-- Back Link at the Bottom -->
+    <div class="back-link-container">
+      <a href="index.html" class="back-link">
+        <span class="arrow-icon">←</span>BACK TO MAIN PAGE
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container text-center">
+        <p>© 2025 Explore Etc.</p>
+      </div>
+    </footer>
+
+    <script>
+      // 載入 Google Visualization API
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(init);
+
+      function init() {
+        const url =
+          "https://docs.google.com/spreadsheets/d/1NKkaTKG75UbrrCsmabqK3qwRd2MmyVs0/gviz/tq?sheet=工作表1";
+
+        const query = new google.visualization.Query(url);
+        query.setQuery("select A, B, C, D, E, F, G, H, I");
+        query.send(processSheetsData);
+      }
+
+      function processSheetsData(response) {
+        const data = response.getDataTable();
+        const rows = data.getNumberOfRows();
+        const columns = data.getNumberOfColumns();
+
+        if (!data || rows === 0) {
+          document.getElementById("demo").innerHTML =
+            "<p>未找到任何資料，請檢查 Google Sheets 連結或內容。</p>";
+          return;
+        }
+
+        // 生成表格 HTML，第一列添加 checkbox
+        let str = `<table id="myTable" class="display order-column">
+                      <thead>
+                        <tr>
+                          <th><input type="checkbox" id="select-all" /></th>`; // 全選勾選框
+        for (let c = 0; c < columns; c++) {
+          str += `<th>${data.getColumnLabel(c)}</th>`;
+        }
+        str += `</tr>
+                    </thead>
+                    <tbody>`;
+
+        for (let r = 0; r < rows; r++) {
+          str += "<tr>";
+          str += `<td><input type="checkbox" class="row-checkbox" /></td>`; // 行勾選框
+          for (let c = 0; c < columns; c++) {
+            const cellValue = data.getFormattedValue(r, c);
+            str += `<td>${cellValue}</td>`;
+          }
+          str += "</tr>";
+        }
+        str += `</tbody></table>`;
+
+        document.getElementById("demo").innerHTML = str;
+
+        // 初始化 DataTable
+        const table = $("#myTable").DataTable({
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/zh-HANT.json",
+          },
+          ordering: false,
+        });
+
+        // 全選功能
+        $("#select-all").on("click", function () {
+          const isChecked = $(this).is(":checked");
+          $(".row-checkbox").prop("checked", isChecked); // 勾選或取消所有行
+        });
+
+        // 下載 CSV 功能
+        $("#download-btn").on("click", function () {
+          let headers = [];
+          $("#myTable thead th").each(function (index) {
+            if (index > 0) headers.push($(this).text()); // 跳過第一列（checkbox 列）
+          });
+
+          let csvContent = headers.join(",") + "\n";
+
+          // 遍歷選中的行
+          $("#myTable tbody tr").each(function () {
+            const rowCheckbox = $(this).find(".row-checkbox");
+            if (rowCheckbox.is(":checked")) {
+              const row = [];
+              $(this)
+                .find("td")
+                .each(function (index) {
+                  if (index > 0) row.push($(this).text()); // 跳過第一列（checkbox 列）
+                });
+              csvContent += row.join(",") + "\n";
+            }
+          });
+
+          // 檢查是否有選中的行
+          if (csvContent === headers.join(",") + "\n") {
+            alert("請至少選擇一行進行下載！");
+            return;
+          }
+
+          // 生成並下載 CSV 文件
+          const blob = new Blob([csvContent], {
+            type: "text/csv;charset=utf-8;",
+          });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "selected-data.csv";
+          link.click();
+        });
+      }
+    </script>
+  </body>
+</html>
