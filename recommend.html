@@ -340,12 +340,32 @@
         font-size: 1rem;
         margin-right: 15px; /* 確保箭頭和文字之間的間距 */
       }
+
+      .controls {
+        display: flex; /* 啟用 flexbox */
+        justify-content: center; /* 水平置中 */
+        align-items: center; /* 垂直置中（如果需要） */
+        gap: 10px; /* 按鈕之間的間距 */
+        margin: 20px 0; /* 上下增加外邊距 */
+        margin-bottom: 45px;
+      }
+
+      .controls .btn {
+        border-radius: 0%; /* 按鈕無圓角 */
+        transition: transform 0.3s ease; /* 平滑過渡效果 */
+      }
+
+      .controls .btn:hover {
+        transform: scale(1.5); /* 懸停時縮放效果 */
+      }
     </style>
   </head>
   <body>
     <!-- LOGO -->
     <div class="logo">
-      <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
+      <a href="./index.html" style="text-decoration: none; color: inherit"
+        >Explore Etc.</a
+      >
     </div>
 
     <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
@@ -522,6 +542,12 @@
       <span class="sub-title">Recommendations from Others</span>
     </div>
 
+    <div class="controls-container">
+      <div class="controls">
+        <!-- 按鈕將在 JavaScript 中動態生成 -->
+      </div>
+    </div>
+
     <div class="container my-5">
       <div id="cards-container" class="row"></div>
     </div>
@@ -577,6 +603,8 @@
           });
         });
 
+        let csvData = [];
+
         const cardsContainer = document.getElementById("cards-container");
 
         const url =
@@ -586,9 +614,71 @@
         google.charts.setOnLoadCallback(init);
 
         function init() {
+          loadCategoryButtons();
           const query = new google.visualization.Query(url);
           query.setQuery("select *"); // 獲取試算表所有數據
           query.send(processSheetsData);
+        }
+
+        function loadCategoryButtons() {
+          const query = new google.visualization.Query(url);
+          query.setQuery("select C"); // 讀取 Category 欄位
+          query.send((response) => {
+            if (response.isError()) {
+              console.error("Error loading categories:", response.getMessage());
+              return;
+            }
+
+            const data = response.getDataTable();
+            const rows = data.getNumberOfRows();
+            const uniqueCategories = new Set();
+
+            for (let i = 0; i < rows; i++) {
+              const category = data.getFormattedValue(i, 0);
+              if (category) uniqueCategories.add(category);
+            }
+
+            createFilterButtons(uniqueCategories);
+          });
+        }
+
+        function createFilterButtons(categories) {
+          const controlsContainer = document.querySelector(".controls");
+          controlsContainer.innerHTML = "";
+
+          const allButton = document.createElement("button");
+          allButton.className = "btn filter";
+          allButton.setAttribute("data-filter", "all");
+          allButton.textContent = "All";
+          controlsContainer.appendChild(allButton);
+
+          categories.forEach((category) => {
+            const button = document.createElement("button");
+            button.className = "btn filter";
+            button.setAttribute("data-filter", category);
+            button.textContent = category;
+            controlsContainer.appendChild(button);
+          });
+
+          const buttons = controlsContainer.querySelectorAll(".btn.filter");
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              buttons.forEach((btn) => btn.classList.remove("active"));
+              button.classList.add("active");
+
+              const filterValue = button.getAttribute("data-filter");
+              cardsContainer.innerHTML = "";
+
+              if (filterValue === "all") {
+                csvData.forEach((row) => createCard(row));
+              } else {
+                const filteredData = csvData.filter(
+                  (row) => row.Category === filterValue
+                );
+                filteredData.forEach((row) => createCard(row));
+              }
+            });
+          });
         }
 
         function processSheetsData(response) {
@@ -610,6 +700,7 @@
               Description: data.getFormattedValue(r, 5),
               Rating: data.getFormattedValue(r, 6),
             };
+            csvData.push(row);
             createCard(row);
           }
         }
@@ -662,7 +753,6 @@
           cardsContainer.appendChild(card);
         }
 
-        // 生成評分星星
         function generateStars(rating) {
           let starsHtml = '<span class="d-flex align-items-center">';
           const fullStars = Math.floor(rating);
