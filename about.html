@@ -149,6 +149,28 @@
         text-align: center; /* 文字置中 */
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加陰影 */
         transition: background-color 0.3s ease, transform 0.3s ease; /* 動態效果 */
+        cursor: pointer; /* 滑鼠變成手形 */
+        transition: transform 0.2s ease, box-shadow 0.2s ease; /* 添加過渡效果 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 初始陰影效果 */
+      }
+
+      .category-list li a {
+        text-decoration: none; /* 移除下劃線 */
+        color: inherit; /* 繼承父元素的字體顏色 */
+        display: inline-block; /* 保持塊級效果 */
+        width: 100%; /* 讓連結覆蓋整個按鈕 */
+        height: 100%;
+      }
+
+      .category-list li:hover {
+        background-color: #e0e0e0; /* 改變背景顏色 */
+        transform: translateY(-3px); /* 提升效果 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 增加陰影 */
+      }
+
+      .category-list li:active {
+        transform: translateY(2px); /* 按下時下壓效果 */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* 減少陰影 */
       }
 
       /* 返回按鈕容器樣式 */
@@ -282,7 +304,9 @@
 
     <!-- LOGO -->
     <div class="logo">
-      <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
+      <a href="./index.html" style="text-decoration: none; color: inherit"
+        >Explore Etc.</a
+      >
     </div>
 
     <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
@@ -383,19 +407,20 @@
           透過 12 大分類，我希望將這些值得推薦的店家帶給更多人，
           也讓剛進校園的學弟妹們能夠更快找到屬於自己的美好角落：
         </p>
+
         <ul class="category-list">
-          <li>飲料店</li>
-          <li>咖啡廳</li>
-          <li>伴手禮</li>
-          <li>診所</li>
-          <li>早餐</li>
-          <li>來一點特別</li>
-          <li>日常可吃</li>
-          <li>宵夜</li>
-          <li>甜點</li>
-          <li>忠孝夜市</li>
-          <li>學校附近酒吧</li>
-          <li>夜景咖啡廳</li>
+          <li><a href="#" class="category-link">飲料店</a></li>
+          <li><a href="#" class="category-link">咖啡廳</a></li>
+          <li><a href="#" class="category-link">伴手禮</a></li>
+          <li><a href="#" class="category-link">診所</a></li>
+          <li><a href="#" class="category-link">早餐</a></li>
+          <li><a href="#" class="category-link">來一點特別</a></li>
+          <li><a href="#" class="category-link">日常可吃</a></li>
+          <li><a href="#" class="category-link">宵夜</a></li>
+          <li><a href="#" class="category-link">甜點</a></li>
+          <li><a href="#" class="category-link">忠孝夜市</a></li>
+          <li><a href="#" class="category-link">學校附近酒吧</a></li>
+          <li><a href="#" class="category-link">夜景咖啡廳</a></li>
         </ul>
 
         <p>
@@ -437,5 +462,17 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 選取所有分類連結
+        const links = document.querySelectorAll(".category-link");
+
+        links.forEach((link) => {
+          const categoryName = link.textContent.trim(); // 取得分類名稱
+          const encodedCategory = encodeURIComponent(categoryName); // 將分類名稱編碼
+          link.setAttribute("href", `index.html?category=${encodedCategory}`); // 更新 href 屬性
+        });
+      });
+    </script>
   </body>
 </html>

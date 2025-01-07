@@ -37,7 +37,9 @@
 
     <!-- LOGO -->
     <div class="logo">
-      <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
+      <a href="./index.html" style="text-decoration: none; color: inherit"
+        >Explore Etc.</a
+      >
     </div>
 
     <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
@@ -165,7 +167,18 @@
       let image = [];
       let intro = [];
       const csvData = [];
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("category"); // 獲取 category 參數
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
+        const category = getQueryParams();
+        if (category) {
+          console.log("Received category:", decodeURIComponent(category));
+          // 在此處執行相應的處理，例如根據 category 篩選資料
+        }
+
         // Dynamically load images from ./images/images1/
         const imageFolder = "./images/images1/";
         const imageSlider = document.getElementById("image-slider");
@@ -320,6 +333,31 @@
                     filteredData.forEach((row) => createCard(row));
                   }
                 });
+
+                // Automatically trigger the button if category matches
+                console.log("category", category); // 檢查原始數據表
+                console.log(
+                  "decodeURIComponent(category)",
+                  decodeURIComponent(category)
+                ); // 檢查原始數據表
+
+                // Automatically trigger the button if category matches
+                console.log("Checking category match:", {
+                  category: decodeURIComponent(category),
+                  buttonFilter: button.getAttribute("data-filter"),
+                  isMatch:
+                    category &&
+                    decodeURIComponent(category) ===
+                      button.getAttribute("data-filter"),
+                });
+
+                if (
+                  category &&
+                  decodeURIComponent(category) ===
+                    button.getAttribute("data-filter")
+                ) {
+                  button.click();
+                }
               });
             });
           }

@@ -161,6 +161,22 @@
         border-radius: 5px; /* 圓角效果 */
         text-align: center; /* 文字置中 */
         font-weight: 500; /* 字體粗細 */
+        cursor: pointer; /* 滑鼠變成指針 */
+        transition: transform 0.2s ease, box-shadow 0.2s ease; /* 添加過渡效果 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 初始陰影效果 */
+      }
+
+      /* 懸停效果 */
+      .tag:hover {
+        background-color: #e0e0e0; /* 改變背景顏色 */
+        transform: translateY(-3px); /* 提升效果 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影 */
+      }
+
+      /* 按下效果 */
+      .tag:active {
+        transform: translateY(2px); /* 按下時下壓效果 */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* 減少陰影 */
       }
 
       .image-section {
@@ -386,7 +402,9 @@
 
     <!-- LOGO -->
     <div class="logo">
-      <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
+      <a href="./index.html" style="text-decoration: none; color: inherit"
+        >Explore Etc.</a
+      >
     </div>
 
     <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
@@ -639,8 +657,13 @@
 
           const tagContainer = document.querySelector(".tag-container");
           tagContainer.innerHTML = `
-                 <div class="tag">${selectedRow.Category}</div>
-                 <div class="tag">${selectedRow.Region}</div>
+                 <div class="tag">
+                    <a href="index.html?category=${encodeURIComponent(
+                      selectedRow.Category
+                    )}" style="text-decoration: none; color: inherit;">
+                        ${selectedRow.Category}
+                    </a>
+                 </div>
                `;
 
           document.querySelector(".info-item:nth-child(3) div").textContent =
