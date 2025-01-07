@@ -10,24 +10,6 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Import Google Charts -->
-    <script
-      type="text/javascript"
-      src="https://www.gstatic.com/charts/loader.js"
-    ></script>
-
-    <!-- Optional: Import jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
-    <!-- DataTables CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
       /* 全局設置 */
@@ -105,12 +87,96 @@
 
       .sub-title {
         font-family: serif;
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: #666;
+        text-transform: uppercase;
         background: #f8f8f8;
         display: inline-block;
         padding: 0 10px;
         position: relative;
+      }
+
+      /* 關於我們的樣式 */
+      .about-section {
+        background-color: #f8f8f8;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .about-section h2 {
+        font-family: "Georgia", serif;
+        font-size: 1.3rem;
+        color: #444;
+        margin-bottom: 30px;
+      }
+
+      .about-section p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .about-section ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+
+      .about-section ul li {
+        font-size: 1rem;
+        color: #555;
+        margin: 10px 0;
+      }
+
+      .category-list {
+        display: flex; /* 使用 flexbox */
+        flex-wrap: wrap; /* 讓分類可以自動換行 */
+        justify-content: center; /* 置中排列 */
+        gap: 15px; /* 每個分類間距 */
+        list-style: none; /* 移除項目符號 */
+        padding: 0; /* 移除內邊距 */
+        margin: 20px 0; /* 設定上下外邊距 */
+      }
+
+      .category-list li {
+        background-color: #f0f0f0; /* 背景色 */
+        padding: 4px 18px; /* 內邊距 */
+        border-radius: 5px; /* 圓角 */
+        font-size: 1rem; /* 字體大小 */
+        color: #333; /* 字體顏色 */
+        font-family: "Arial", sans-serif; /* 字體樣式 */
+        text-align: center; /* 文字置中 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加陰影 */
+        transition: background-color 0.3s ease, transform 0.3s ease; /* 動態效果 */
+      }
+
+      /* 返回按鈕容器樣式 */
+      .back-link-container {
+        margin-top: 40px;
+        text-align: center; /* 置中對齊 */
+        margin-bottom: 20px; /* 與頁尾保持間距 */
+      }
+
+      /* 返回按鈕樣式 */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-family: sans-serif;
+      }
+
+      .back-link:hover {
+        color: #657b6e; /* 懸停時的顏色變化 */
+      }
+
+      /* 箭頭樣式 */
+      .arrow-icon {
+        font-size: 1rem;
+        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
       }
 
       /* 頁腳樣式 */
@@ -147,7 +213,9 @@
         .navbar-nav .nav-link::after {
           content: none; /* 移除偽元素 */
         }
-
+        .sub-title {
+          font-size: 0.9rem;
+        }
         .card-title {
           font-size: 0.9rem;
         }
@@ -180,7 +248,9 @@
         .navbar-nav .nav-link::after {
           content: none; /* 移除偽元素 */
         }
-
+        .sub-title {
+          font-size: 0.8rem;
+        }
         .card {
           max-width: 90%;
         }
@@ -205,60 +275,11 @@
           padding: 20px; /* 減少內邊距 */
         }
       }
-
-      #demo {
-        max-width: 90%;
-        margin: 0 auto;
-        margin-top: 20px;
-      }
-
-      .download-btn {
-        border: 1px solid #dcdcdc;
-        font-family: serif;
-        padding: 8px 100px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        border-radius: 0%;
-      }
-
-      .download-btn.btn-primary:active,
-      .download-btn.btn-primary:hover {
-        background-color: #657b6e !important; /* 強制使用自定義顏色 */
-        border: 1px solid #657b6e;
-        color: #fff !important;
-      }
-
-      /* 返回按鈕容器樣式 */
-      .back-link-container {
-        margin-top: 40px;
-        text-align: center; /* 置中對齊 */
-        margin-bottom: 20px; /* 與頁尾保持間距 */
-      }
-
-      /* 返回按鈕樣式 */
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        font-size: 1rem;
-        color: #333;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        font-family: sans-serif;
-      }
-
-      .back-link:hover {
-        color: #657b6e; /* 懸停時的顏色變化 */
-      }
-
-      /* 箭頭樣式 */
-      .arrow-icon {
-        font-size: 1rem;
-        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
-      }
     </style>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- LOGO -->
     <div class="logo">
       <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
@@ -339,20 +360,66 @@
     <!-- 副標題與分隔線 -->
     <div class="sub-title-container">
       <div class="sub-title-line"></div>
-      <span class="sub-title"
-        >Cick the button on the right to download the list you selected</span
-      >
+      <span class="sub-title">About</span>
     </div>
 
-    <!-- 表格容器 -->
-    <div id="demo"></div>
+    <!-- 關於我們 -->
+    <section class="about-section">
+      <div class="container">
+        <h2>致點開這個網頁的你</h2>
+        <p>
+          探索生活的每一個角落，將感動與美好記錄下來，是一種發現幸福的方式。
+        </p>
+        <p>
+          在中興的這四年，我走遍了校園附近的每一條街巷，無論是清晨的早餐店、
+          午后的咖啡廳，還是深夜的宵夜攤，都留下了許多美好的回憶。
+        </p>
+        <p>
+          也許是一杯暖心的手沖咖啡、一盤特別的招牌料理，甚至是一家貼心的診所，
+          這些地方不僅豐富了我的大學生活，更為每一段時光增添了溫度。
+        </p>
+        <p>因此，我決定將這些經歷整理起來，製作這個網站，分享給大家。</p>
+        <p>
+          透過 12 大分類，我希望將這些值得推薦的店家帶給更多人，
+          也讓剛進校園的學弟妹們能夠更快找到屬於自己的美好角落：
+        </p>
+        <ul class="category-list">
+          <li>飲料店</li>
+          <li>咖啡廳</li>
+          <li>伴手禮</li>
+          <li>診所</li>
+          <li>早餐</li>
+          <li>來一點特別</li>
+          <li>日常可吃</li>
+          <li>宵夜</li>
+          <li>甜點</li>
+          <li>忠孝夜市</li>
+          <li>學校附近酒吧</li>
+          <li>夜景咖啡廳</li>
+        </ul>
 
-    <!-- 下載按鈕 -->
-    <div class="download-btn-container text-center">
-      <button id="download-btn" class="download-btn btn-primary">
-        下載表格
-      </button>
-    </div>
+        <p>
+          每個分類都包含了我精心篩選的推薦店家。像「日常可吃」包含了適合日常光顧的餐廳，
+          而「來一點特別」則是為了那些特別的日子，例如考完試後的犒賞、需要放鬆時的小小旅行。
+        </p>
+        <p>
+          這些店家豐富了我的大學四年，也希望這份清單能陪伴你們，
+          讓每一段日子都多一些驚喜與美好。
+        </p>
+        <p>願這個網站，成為你們大學生活的溫暖夥伴。</p>
+
+        <p
+          style="
+            margin-top: 40px;
+            font-size: 1rem;
+            font-style: italic;
+            color: #555;
+          "
+        >
+          — By 奕
+        </p>
+      </div>
+    </section>
 
     <!-- Back Link at the Bottom -->
     <div class="back-link-container">
@@ -368,109 +435,7 @@
       </div>
     </footer>
 
-    <script>
-      // 載入 Google Visualization API
-      google.charts.load("current", { packages: ["corechart"] });
-      google.charts.setOnLoadCallback(init);
-
-      function init() {
-        const url =
-          "https://docs.google.com/spreadsheets/d/1NKkaTKG75UbrrCsmabqK3qwRd2MmyVs0/gviz/tq?sheet=工作表1";
-
-        const query = new google.visualization.Query(url);
-        query.setQuery("select A, B, C, D, E, F, G, H, I");
-        query.send(processSheetsData);
-      }
-
-      function processSheetsData(response) {
-        const data = response.getDataTable();
-        const rows = data.getNumberOfRows();
-        const columns = data.getNumberOfColumns();
-
-        if (!data || rows === 0) {
-          document.getElementById("demo").innerHTML =
-            "<p>未找到任何資料，請檢查 Google Sheets 連結或內容。</p>";
-          return;
-        }
-
-        // 生成表格 HTML，第一列添加 checkbox
-        let str = `<table id="myTable" class="display order-column">
-                      <thead>
-                        <tr>
-                          <th><input type="checkbox" id="select-all" /></th>`; // 全選勾選框
-        for (let c = 0; c < columns; c++) {
-          str += `<th>${data.getColumnLabel(c)}</th>`;
-        }
-        str += `</tr>
-                    </thead>
-                    <tbody>`;
-
-        for (let r = 0; r < rows; r++) {
-          str += "<tr>";
-          str += `<td><input type="checkbox" class="row-checkbox" /></td>`; // 行勾選框
-          for (let c = 0; c < columns; c++) {
-            const cellValue = data.getFormattedValue(r, c);
-            str += `<td>${cellValue}</td>`;
-          }
-          str += "</tr>";
-        }
-        str += `</tbody></table>`;
-
-        document.getElementById("demo").innerHTML = str;
-
-        // 初始化 DataTable
-        const table = $("#myTable").DataTable({
-          language: {
-            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/zh-HANT.json",
-          },
-          ordering: false,
-        });
-
-        // 全選功能
-        $("#select-all").on("click", function () {
-          const isChecked = $(this).is(":checked");
-          $(".row-checkbox").prop("checked", isChecked); // 勾選或取消所有行
-        });
-
-        // 下載 CSV 功能
-        $("#download-btn").on("click", function () {
-          let headers = [];
-          $("#myTable thead th").each(function (index) {
-            if (index > 0) headers.push($(this).text()); // 跳過第一列（checkbox 列）
-          });
-
-          let csvContent = headers.join(",") + "\n";
-
-          // 遍歷選中的行
-          $("#myTable tbody tr").each(function () {
-            const rowCheckbox = $(this).find(".row-checkbox");
-            if (rowCheckbox.is(":checked")) {
-              const row = [];
-              $(this)
-                .find("td")
-                .each(function (index) {
-                  if (index > 0) row.push($(this).text()); // 跳過第一列（checkbox 列）
-                });
-              csvContent += row.join(",") + "\n";
-            }
-          });
-
-          // 檢查是否有選中的行
-          if (csvContent === headers.join(",") + "\n") {
-            alert("請至少選擇一行進行下載！");
-            return;
-          }
-
-          // 生成並下載 CSV 文件
-          const blob = new Blob([csvContent], {
-            type: "text/csv;charset=utf-8;",
-          });
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = "selected-data.csv";
-          link.click();
-        });
-      }
-    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
