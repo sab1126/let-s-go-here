@@ -5,12 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Explore Etc.</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Google Fonts - Material Icons -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <!-- Import Swiper.js CSS -->
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <!-- Swiper CSS -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
@@ -21,20 +34,6 @@
       type="text/javascript"
       src="https://www.gstatic.com/charts/loader.js"
     ></script>
-
-    <!-- Optional: Import jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
 
     <style>
       /* 全局設置 */
@@ -100,7 +99,6 @@
         margin: 30px auto;
         position: relative;
       }
-
       .sub-title-line {
         width: 100%;
         height: 1px;
@@ -109,7 +107,6 @@
         top: 50%;
         left: 0;
       }
-
       .sub-title {
         font-family: serif;
         font-size: 1.2rem;
@@ -128,6 +125,29 @@
         border-radius: 0%;
       }
 
+      /* 評分區域樣式：設置評分星星的滑鼠懸停與選中效果 */
+      .rating-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+      .rating-container label {
+        font-size: 2rem;
+        color: #ccc; /* 預設灰色 */
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+      .rating-container input[type="radio"] {
+        display: none; /* 隱藏原生單選按鈕 */
+      }
+      .rating-container label.active {
+        color: #f5a623; /* 點擊後的填滿顏色 */
+      }
+      .rating-container label.hover {
+        color: #f5a623; /* 懸停的填滿顏色 */
+      }
+
       /* Submit 按鈕樣式 */
       .submit-btn {
         background-color: #f8f8f8;
@@ -137,12 +157,100 @@
         font-family: serif;
         border-radius: 0%;
       }
-
       .submit-btn.btn-primary:active,
       .submit-btn.btn-primary:hover {
         background-color: #657b6e !important; /* 強制使用自定義顏色 */
         border: 1px solid #657b6e;
         color: #fff !important;
+      }
+
+      /* 篩選按鈕容器樣式 */
+      .controls {
+        display: flex; /* 啟用 flexbox */
+        justify-content: center; /* 水平置中 */
+        align-items: center; /* 垂直置中（如果需要） */
+        gap: 10px; /* 按鈕之間的間距 */
+        margin: 20px 0; /* 上下增加外邊距 */
+        margin-bottom: 45px;
+      }
+      .controls .btn {
+        border-radius: 0%; /* 按鈕無圓角 */
+        transition: transform 0.3s ease; /* 平滑過渡效果 */
+      }
+      .controls .btn:hover {
+        transform: scale(1.5); /* 懸停時縮放效果 */
+      }
+
+      /* 卡片樣式 */
+      .card {
+        border-radius: 0; /* 直角樣式 */
+        border: 1px solid #e0e0e0; /* 增加卡片邊框 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 輕微陰影（可選） */
+      }
+      /* 圖示樣式 */
+      .icon-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #555;
+        align-items: flex-start; /* 圖示與文字的第一行對齊 */
+      }
+      .icon-row i {
+        color: #888;
+      }
+      /* Tag 與店家名稱之間的距離 */
+      .badge-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px; /* 增加距離 */
+        margin-bottom: 20px; /* 增加距離與下一部分的分隔 */
+        flex-wrap: wrap; /* 當 tag 過多時自動換行 */
+      }
+      .badge {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #333;
+        background-color: #f5f5f5;
+      }
+      /* 修改描述文字的顏色 */
+      .description-box {
+        font-size: 0.9rem;
+        color: #888; /* 修改為深灰色，與標籤區分 */
+        line-height: 1.5; /* 調整行距 */
+        max-height: 100px; /* 限制高度 */
+        overflow-y: auto; /* 啟用垂直滾動條（如果內容過多） */
+        background: none; /* 確保背景透明 */
+        border: none; /* 確保沒有邊框 */
+        padding: 0; /* 移除內邊距 */
+      }
+
+      /* 返回按鈕容器樣式 */
+      .back-link-container {
+        margin-top: 40px;
+        text-align: center; /* 置中對齊 */
+        margin-bottom: 20px; /* 與頁尾保持間距 */
+      }
+      /* 返回按鈕樣式 */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-family: sans-serif;
+      }
+      .back-link:hover {
+        color: #657b6e; /* 懸停時的顏色變化 */
+      }
+      /* 箭頭樣式 */
+      .arrow-icon {
+        font-size: 1rem;
+        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
       }
 
       /* 頁腳樣式 */
@@ -170,7 +278,6 @@
           max-width: 300px; /* 維持按鈕最大寬度 */
         }
       }
-
       /* 平板裝置（576px ~ 768px） */
       @media (max-width: 768px) {
         .logo {
@@ -203,7 +310,6 @@
           padding: 15px; /* 減少內邊距 */
         }
       }
-
       /* 超小螢幕（576px 以下） */
       @media (max-width: 576px) {
         .logo {
@@ -237,127 +343,6 @@
           padding: 20px; /* 減少內邊距 */
         }
       }
-      .rating-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .rating-container label {
-        font-size: 2rem;
-        color: #ccc; /* 預設灰色 */
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
-
-      .rating-container input[type="radio"] {
-        display: none; /* 隱藏原生單選按鈕 */
-      }
-
-      .rating-container label.active {
-        color: #f5a623; /* 點擊後的填滿顏色 */
-      }
-
-      .rating-container label.hover {
-        color: #f5a623; /* 懸停的填滿顏色 */
-      }
-
-      /* Tag 與店家名稱之間的距離 */
-      .badge-container {
-        display: flex;
-        gap: 10px;
-        margin-top: 15px; /* 增加距離 */
-        margin-bottom: 20px; /* 增加距離與下一部分的分隔 */
-        flex-wrap: wrap; /* 當 tag 過多時自動換行 */
-      }
-
-      /* 修改描述文字的顏色 */
-      .description-box {
-        font-size: 0.9rem;
-        color: #888; /* 修改為深灰色，與標籤區分 */
-        line-height: 1.5; /* 調整行距 */
-        max-height: 100px; /* 限制高度 */
-        overflow-y: auto; /* 啟用垂直滾動條（如果內容過多） */
-        background: none; /* 確保背景透明 */
-        border: none; /* 確保沒有邊框 */
-        padding: 0; /* 移除內邊距 */
-      }
-
-      .card {
-        border-radius: 0; /* 直角樣式 */
-        border: 1px solid #e0e0e0; /* 增加卡片邊框 */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 輕微陰影（可選） */
-      }
-
-      .badge {
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        color: #333;
-        background-color: #f5f5f5;
-      }
-
-      .icon-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-        color: #555;
-        align-items: flex-start; /* 圖示與文字的第一行對齊 */
-      }
-
-      .icon-row i {
-        color: #888;
-      }
-
-      /* 返回按鈕容器樣式 */
-      .back-link-container {
-        margin-top: 40px;
-        text-align: center; /* 置中對齊 */
-        margin-bottom: 20px; /* 與頁尾保持間距 */
-      }
-
-      /* 返回按鈕樣式 */
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        font-size: 1rem;
-        color: #333;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        font-family: sans-serif;
-      }
-
-      .back-link:hover {
-        color: #657b6e; /* 懸停時的顏色變化 */
-      }
-
-      /* 箭頭樣式 */
-      .arrow-icon {
-        font-size: 1rem;
-        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
-      }
-
-      .controls {
-        display: flex; /* 啟用 flexbox */
-        justify-content: center; /* 水平置中 */
-        align-items: center; /* 垂直置中（如果需要） */
-        gap: 10px; /* 按鈕之間的間距 */
-        margin: 20px 0; /* 上下增加外邊距 */
-        margin-bottom: 45px;
-      }
-
-      .controls .btn {
-        border-radius: 0%; /* 按鈕無圓角 */
-        transition: transform 0.3s ease; /* 平滑過渡效果 */
-      }
-
-      .controls .btn:hover {
-        transform: scale(1.5); /* 懸停時縮放效果 */
-      }
     </style>
   </head>
   <body>
@@ -368,10 +353,10 @@
       >
     </div>
 
-    <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
+    <!-- 導航欄 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <!-- 漢堡按鈕 -->
+        <!-- 漢堡按鈕：小螢幕時顯示 -->
         <button
           class="navbar-toggler"
           type="button"
@@ -384,7 +369,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- 大螢幕顯示的導航 -->
+        <!-- 大螢幕的導航連結 -->
         <div
           class="collapse navbar-collapse d-none d-lg-flex justify-content-center"
         >
@@ -404,7 +389,7 @@
           </ul>
         </div>
 
-        <!-- 小螢幕的 Offcanvas -->
+        <!-- 小螢幕的 Offcanvas 導航 -->
         <div
           class="offcanvas offcanvas-end d-lg-none"
           tabindex="-1"
@@ -542,12 +527,12 @@
       <span class="sub-title">Recommendations from Others</span>
     </div>
 
+    <!-- 篩選按鈕的容器，按鈕會由 JavaScript 動態生成 -->
     <div class="controls-container">
-      <div class="controls">
-        <!-- 按鈕將在 JavaScript 中動態生成 -->
-      </div>
+      <div class="controls"></div>
     </div>
 
+    <!-- 卡片容器，顯示篩選後的推薦店家資訊 -->
     <div class="container my-5">
       <div id="cards-container" class="row"></div>
     </div>
@@ -566,10 +551,16 @@
       </div>
     </footer>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // 取得星星評分的元素
         const stars = document.querySelectorAll(
           ".rating-container input[type='radio']"
         );
@@ -603,16 +594,19 @@
           });
         });
 
+        // 儲存從試算表中讀取的數據
         let csvData = [];
-
+        // 卡片顯示的容器
         const cardsContainer = document.getElementById("cards-container");
-
+        // Google 試算表的資料來源 URL
         const url =
           "https://docs.google.com/spreadsheets/d/1s94RfjV4w56Ee0i6m_0irgVu0-Bi4ssJeq07zYmH7rQ/gviz/tq?sheet=工作表1";
 
+        // 載入 Google Visualization API
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(init);
 
+        // 初始化函式，載入分類按鈕和數據
         function init() {
           loadCategoryButtons();
           const query = new google.visualization.Query(url);
@@ -620,6 +614,7 @@
           query.send(processSheetsData);
         }
 
+        // 載入分類按鈕
         function loadCategoryButtons() {
           const query = new google.visualization.Query(url);
           query.setQuery("select C"); // 讀取 Category 欄位
@@ -637,21 +632,24 @@
               const category = data.getFormattedValue(i, 0);
               if (category) uniqueCategories.add(category);
             }
-
+            // 動態生成篩選按鈕
             createFilterButtons(uniqueCategories);
           });
         }
 
+        // 創建篩選按鈕
         function createFilterButtons(categories) {
           const controlsContainer = document.querySelector(".controls");
           controlsContainer.innerHTML = "";
 
+          // 全部按鈕
           const allButton = document.createElement("button");
           allButton.className = "btn filter";
           allButton.setAttribute("data-filter", "all");
           allButton.textContent = "All";
           controlsContainer.appendChild(allButton);
 
+          // 每個分類按鈕
           categories.forEach((category) => {
             const button = document.createElement("button");
             button.className = "btn filter";
@@ -660,6 +658,7 @@
             controlsContainer.appendChild(button);
           });
 
+          // 按鈕點擊事件
           const buttons = controlsContainer.querySelectorAll(".btn.filter");
           buttons.forEach((button) => {
             button.addEventListener("click", () => {
@@ -681,6 +680,7 @@
           });
         }
 
+        // 處理試算表的數據
         function processSheetsData(response) {
           if (response.isError()) {
             console.error("Error loading data:", response.getMessage());
@@ -690,6 +690,7 @@
           const data = response.getDataTable();
           const rows = data.getNumberOfRows();
 
+          // 解析數據並生成卡片
           for (let r = 0; r < rows; r++) {
             const row = {
               Timestamp: data.getFormattedValue(r, 0),
@@ -705,6 +706,7 @@
           }
         }
 
+        // 動態生成卡片
         function createCard(row) {
           const card = document.createElement("div");
           card.className = "col-lg-4 col-md-6 col-12";
@@ -753,6 +755,7 @@
           cardsContainer.appendChild(card);
         }
 
+        // 生成評分星星
         function generateStars(rating) {
           let starsHtml = '<span class="d-flex align-items-center">';
           const fullStars = Math.floor(rating);
@@ -775,6 +778,7 @@
         }
       });
 
+      // 表單提交處理
       function formresponse() {
         const storeName = document.getElementById("storeName").value;
         const category = document.getElementById("category").value;
@@ -790,6 +794,7 @@
           return false;
         }
 
+        // 提交到 Google 表單
         const formUrl =
           "https://docs.google.com/forms/d/e/1FAIpQLSfVPQJoBgXQ2wSoY-b3FoO6ODWr2jBLZSKBIGYrMJ-P6ZPCYQ/formResponse";
         const fullUrl =
@@ -803,11 +808,13 @@
         // 使用 Fetch 提交
         fetch(fullUrl, { method: "GET", mode: "no-cors" })
           .then(() => {
-            alert("Your recommendation has been successfully submitted!");
+            alert("您的推薦已成功提交！");
+            // 提交成功後重新加載頁面
+            window.location.reload();
           })
           .catch((error) => {
             console.error("Submission failed:", error);
-            alert("Submission failed. Please try again later.");
+            alert("提交失敗，請稍後再試。");
           });
         return false; // 防止表單的默認提交
       }

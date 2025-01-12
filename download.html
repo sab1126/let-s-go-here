@@ -10,24 +10,18 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+
     <!-- Import Google Charts -->
     <script
       type="text/javascript"
       src="https://www.gstatic.com/charts/loader.js"
     ></script>
 
-    <!-- Optional: Import jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
     <!-- DataTables CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
       /* 全局設置 */
@@ -93,7 +87,6 @@
         margin: 30px auto;
         position: relative;
       }
-
       .sub-title-line {
         width: 100%;
         height: 1px;
@@ -102,7 +95,6 @@
         top: 50%;
         left: 0;
       }
-
       .sub-title {
         font-family: serif;
         font-size: 1.2rem;
@@ -111,6 +103,55 @@
         display: inline-block;
         padding: 0 10px;
         position: relative;
+      }
+
+      /* 設置表格容器的樣式，使其居中並限制寬度 */
+      #demo {
+        max-width: 90%;
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+
+      /* 定義下載按鈕的外觀，包括邊框、字體和交互樣式 */
+      .download-btn {
+        border: 1px solid #dcdcdc;
+        font-family: serif;
+        padding: 8px 100px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border-radius: 0%;
+      }
+      .download-btn.btn-primary:active,
+      .download-btn.btn-primary:hover {
+        background-color: #657b6e !important; /* 強制使用自定義顏色 */
+        border: 1px solid #657b6e;
+        color: #fff !important;
+      }
+
+      /* 返回按鈕容器樣式 */
+      .back-link-container {
+        margin-top: 40px;
+        text-align: center; /* 置中對齊 */
+        margin-bottom: 20px; /* 與頁尾保持間距 */
+      }
+      /* 返回按鈕樣式 */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-family: sans-serif;
+      }
+      .back-link:hover {
+        color: #657b6e; /* 懸停時的顏色變化 */
+      }
+      /* 箭頭樣式 */
+      .arrow-icon {
+        font-size: 1rem;
+        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
       }
 
       /* 頁腳樣式 */
@@ -138,7 +179,6 @@
           max-width: 300px; /* 維持按鈕最大寬度 */
         }
       }
-
       /* 平板裝置（576px ~ 768px） */
       @media (max-width: 768px) {
         .logo {
@@ -171,7 +211,6 @@
           padding: 15px; /* 減少內邊距 */
         }
       }
-
       /* 超小螢幕（576px 以下） */
       @media (max-width: 576px) {
         .logo {
@@ -205,69 +244,20 @@
           padding: 20px; /* 減少內邊距 */
         }
       }
-
-      #demo {
-        max-width: 90%;
-        margin: 0 auto;
-        margin-top: 20px;
-      }
-
-      .download-btn {
-        border: 1px solid #dcdcdc;
-        font-family: serif;
-        padding: 8px 100px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        border-radius: 0%;
-      }
-
-      .download-btn.btn-primary:active,
-      .download-btn.btn-primary:hover {
-        background-color: #657b6e !important; /* 強制使用自定義顏色 */
-        border: 1px solid #657b6e;
-        color: #fff !important;
-      }
-
-      /* 返回按鈕容器樣式 */
-      .back-link-container {
-        margin-top: 40px;
-        text-align: center; /* 置中對齊 */
-        margin-bottom: 20px; /* 與頁尾保持間距 */
-      }
-
-      /* 返回按鈕樣式 */
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        font-size: 1rem;
-        color: #333;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        font-family: sans-serif;
-      }
-
-      .back-link:hover {
-        color: #657b6e; /* 懸停時的顏色變化 */
-      }
-
-      /* 箭頭樣式 */
-      .arrow-icon {
-        font-size: 1rem;
-        margin-right: 15px; /* 確保箭頭和文字之間的間距 */
-      }
     </style>
   </head>
   <body>
     <!-- LOGO -->
     <div class="logo">
-      <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
+      <a href="./index.html" style="text-decoration: none; color: inherit"
+        >Explore Etc.</a
+      >
     </div>
 
-    <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
+    <!-- 導航欄 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <!-- 漢堡按鈕 -->
+        <!-- 漢堡按鈕：小螢幕時顯示 -->
         <button
           class="navbar-toggler"
           type="button"
@@ -280,7 +270,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- 大螢幕顯示的導航 -->
+        <!-- 大螢幕的導航連結 -->
         <div
           class="collapse navbar-collapse d-none d-lg-flex justify-content-center"
         >
@@ -300,7 +290,7 @@
           </ul>
         </div>
 
-        <!-- 小螢幕的 Offcanvas -->
+        <!-- 小螢幕的 Offcanvas 導航 -->
         <div
           class="offcanvas offcanvas-end d-lg-none"
           tabindex="-1"
@@ -368,20 +358,28 @@
       </div>
     </footer>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
       // 載入 Google Visualization API
       google.charts.load("current", { packages: ["corechart"] });
       google.charts.setOnLoadCallback(init);
 
+      // 初始化函式，從 Google Sheets 加載數據
       function init() {
         const url =
           "https://docs.google.com/spreadsheets/d/1NKkaTKG75UbrrCsmabqK3qwRd2MmyVs0/gviz/tq?sheet=工作表1";
-
         const query = new google.visualization.Query(url);
         query.setQuery("select A, B, C, D, E, F, G, H, I");
         query.send(processSheetsData);
       }
 
+      // 處理 Google Sheets 返回的數據
       function processSheetsData(response) {
         const data = response.getDataTable();
         const rows = data.getNumberOfRows();

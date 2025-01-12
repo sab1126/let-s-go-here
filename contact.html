@@ -75,7 +75,6 @@
         margin: 30px auto;
         position: relative;
       }
-
       .sub-title-line {
         width: 100%;
         height: 1px;
@@ -84,7 +83,6 @@
         top: 50%;
         left: 0;
       }
-
       .sub-title {
         font-family: serif;
         font-size: 1.2rem;
@@ -126,7 +124,6 @@
         text-align: center; /* 置中對齊 */
         margin-bottom: 20px; /* 與頁尾保持間距 */
       }
-
       /* 返回按鈕樣式 */
       .back-link {
         display: inline-flex;
@@ -137,7 +134,6 @@
         transition: color 0.3s ease;
         font-family: sans-serif;
       }
-
       .back-link:hover {
         color: #657b6e; /* 懸停時的顏色變化 */
       }
@@ -173,7 +169,6 @@
           max-width: 300px; /* 維持按鈕最大寬度 */
         }
       }
-
       /* 平板裝置（576px ~ 768px） */
       @media (max-width: 768px) {
         .logo {
@@ -206,7 +201,6 @@
           padding: 15px; /* 減少內邊距 */
         }
       }
-
       /* 超小螢幕（576px 以下） */
       @media (max-width: 576px) {
         .logo {
@@ -245,13 +239,15 @@
   <body>
     <!-- LOGO -->
     <div class="logo">
-      <a href="./index.html" style="text-decoration: none; color: inherit">Explore Etc.</a>
+      <a href="./index.html" style="text-decoration: none; color: inherit"
+        >Explore Etc.</a
+      >
     </div>
 
-    <!-- 導航連結，使用 Bootstrap Navbar 組件 -->
+    <!-- 導航欄 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <!-- 漢堡按鈕 -->
+        <!-- 漢堡按鈕：小螢幕時顯示 -->
         <button
           class="navbar-toggler"
           type="button"
@@ -264,7 +260,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- 大螢幕顯示的導航 -->
+        <!-- 大螢幕的導航連結 -->
         <div
           class="collapse navbar-collapse d-none d-lg-flex justify-content-center"
         >
@@ -284,7 +280,7 @@
           </ul>
         </div>
 
-        <!-- 小螢幕的 Offcanvas -->
+        <!-- 小螢幕的 Offcanvas 導航 -->
         <div
           class="offcanvas offcanvas-end d-lg-none"
           tabindex="-1"
@@ -330,10 +326,10 @@
       <div class="form-wrapper">
         <div class="content-container my-5">
           <form class="mt-4">
-            <!-- 第一行 -->
+            <!-- 第一行：輸入使用者的名字 -->
             <div class="row g-4">
               <div class="col-md-6 col-12">
-                <!-- 在小螢幕時占滿一行 -->
+                <!-- First Name 欄位 -->
                 <label for="firstName" class="form-label">First Name *</label>
                 <input
                   type="text"
@@ -344,7 +340,7 @@
                 />
               </div>
               <div class="col-md-6 col-12">
-                <!-- 在小螢幕時占滿一行 -->
+                <!-- Last Name 欄位 -->
                 <label for="lastName" class="form-label">Last Name *</label>
                 <input
                   type="text"
@@ -355,9 +351,10 @@
                 />
               </div>
             </div>
-            <!-- 第二行 -->
+            <!-- 第二行：輸入 Email 和電話號碼 -->
             <div class="row g-4 mt-3">
               <div class="col-md-6 col-12">
+                <!-- Email 欄位 -->
                 <label for="email" class="form-label">Email *</label>
                 <input
                   type="email"
@@ -368,6 +365,7 @@
                 />
               </div>
               <div class="col-md-6 col-12">
+                <!-- Phone 欄位 -->
                 <label for="phone" class="form-label">Phone *</label>
                 <input
                   type="tel"
@@ -378,8 +376,9 @@
                 />
               </div>
             </div>
-            <!-- 第三行 -->
+            <!-- 第三行：輸入留言內容 -->
             <div class="mt-4">
+              <!-- Message 欄位 -->
               <label for="message" class="form-label">Message *</label>
               <textarea
                 class="form-control"
