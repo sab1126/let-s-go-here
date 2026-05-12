@@ -122,8 +122,7 @@
       }
 
       .info-section {
-        transform: translate(-20px, 0px); /* 向左平移10px，向上平移10px */
-        padding-left: 50px; /* 讓整段內容縮排 */
+        padding-left: 50px;
       }
 
       /* 詳細內容容器樣式 */
@@ -179,15 +178,19 @@
       .image-section {
         display: flex;
         align-items: center;
-        transform: translate(40px, 0px); /* 向左平移10px，向上平移10px */
-        overflow: hidden; /* 隱藏超出部分 */
-        position: relative; /* 確保內容定位有效 */
+        overflow: hidden;
+        position: relative;
       }
       .image-section img {
-        width: 97%; /* 確保圖片寬度占滿容器 */
-        height: auto; /* 自動調整高度 */
+        width: 97%;
+        height: auto;
         border-radius: 0;
-        object-fit: cover; /* 防止圖片拉伸 */
+        object-fit: cover;
+      }
+      .image-section-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
       }
 
       /* Swiper 容器調整 */
@@ -290,27 +293,27 @@
       /* 大螢幕（992px 以上）維持原樣 */
       @media (min-width: 992px) {
         .navbar-nav .nav-item {
-          margin: 0 30px; /* 每個導航項目增加更多間距 */
-        }
-
-        .content-container {
-          max-width: 700px; /* 維持寬度 */
-          margin: 0 auto; /* 居中 */
-        }
-        .form-wrapper {
-          margin-left: 30px; /* 保持左側間距 */
-        }
-        .submit-btn {
-          max-width: 300px; /* 維持按鈕最大寬度 */
+          margin: 0 30px;
         }
       }
-      /* 平板裝置（576px ~ 768px） */
+      /* 中型裝置（992px 以下，col-lg 欄位疊排時） */
+      @media (max-width: 991.98px) {
+        .details-container {
+          padding-left: 40px;
+          padding-right: 40px;
+        }
+        .info-section {
+          padding-left: 15px;
+          margin-top: 20px;
+        }
+      }
+      /* 平板裝置（768px 以下） */
       @media (max-width: 768px) {
         .logo {
           font-size: 2rem;
         }
         .navbar-nav .nav-link::after {
-          content: none; /* 移除偽元素 */
+          content: none;
         }
         .sub-title {
           font-size: 0.9rem;
@@ -321,21 +324,10 @@
         .btn {
           font-size: 0.8rem;
         }
-
-        .content-container {
-          max-width: 100%; /* 寬度占滿螢幕 */
-          padding: 0 40px; /* 增加左右內邊距 */
-        }
-        .submit-btn {
-          max-width: 50%; /* 按鈕寬度占滿容器 */
-        }
-        .content-container label {
-          font-size: 14px; /* 字體縮小 */
-        }
-        .content-container input,
-        .content-container textarea {
-          font-size: 14px; /* 輸入框字體縮小 */
-          padding: 15px; /* 減少內邊距 */
+        .details-container {
+          padding-left: 20px;
+          padding-right: 20px;
+          padding-top: 20px;
         }
       }
       /* 超小螢幕（576px 以下） */
@@ -344,7 +336,7 @@
           font-size: 1.8rem;
         }
         .navbar-nav .nav-link::after {
-          content: none; /* 移除偽元素 */
+          content: none;
         }
         .sub-title {
           font-size: 0.8rem;
@@ -356,21 +348,11 @@
           font-size: 0.8rem;
           padding: 8px 16px;
         }
-
-        .content-container {
-          max-width: 100%; /* 寬度占滿螢幕 */
-          padding: 0 20px; /* 增加左右內邊距 */
+        .details-container {
+          padding: 15px;
         }
-        .submit-btn {
-          max-width: 50%; /* 按鈕寬度占滿容器 */
-        }
-        .content-container label {
-          font-size: 12px; /* 字體縮小 */
-        }
-        .content-container input,
-        .content-container textarea {
-          font-size: 12px; /* 輸入框字體縮小 */
-          padding: 20px; /* 減少內邊距 */
+        .info-section {
+          padding-left: 0;
         }
       }
     </style>

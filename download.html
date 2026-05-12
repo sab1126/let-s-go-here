@@ -110,13 +110,14 @@
         max-width: 90%;
         margin: 0 auto;
         margin-top: 20px;
+        overflow-x: auto;
       }
 
       /* 定義下載按鈕的外觀，包括邊框、字體和交互樣式 */
       .download-btn {
         border: 1px solid #dcdcdc;
         font-family: serif;
-        padding: 8px 100px;
+        padding: 8px 40px;
         font-size: 16px;
         cursor: pointer;
         transition: background-color 0.3s ease, color 0.3s ease;
@@ -179,36 +180,23 @@
           max-width: 300px; /* 維持按鈕最大寬度 */
         }
       }
-      /* 平板裝置（576px ~ 768px） */
+      /* 平板裝置（768px 以下） */
       @media (max-width: 768px) {
         .logo {
           font-size: 2rem;
         }
         .navbar-nav .nav-link::after {
-          content: none; /* 移除偽元素 */
+          content: none;
         }
-
         .card-title {
           font-size: 0.9rem;
         }
         .btn {
           font-size: 0.8rem;
         }
-
-        .content-container {
-          max-width: 100%; /* 寬度占滿螢幕 */
-          padding: 0 40px; /* 增加左右內邊距 */
-        }
-        .submit-btn {
-          max-width: 50%; /* 按鈕寬度占滿容器 */
-        }
-        .content-container label {
-          font-size: 14px; /* 字體縮小 */
-        }
-        .content-container input,
-        .content-container textarea {
-          font-size: 14px; /* 輸入框字體縮小 */
-          padding: 15px; /* 減少內邊距 */
+        .download-btn {
+          padding: 8px 20px;
+          width: 80%;
         }
       }
       /* 超小螢幕（576px 以下） */
@@ -217,9 +205,8 @@
           font-size: 1.8rem;
         }
         .navbar-nav .nav-link::after {
-          content: none; /* 移除偽元素 */
+          content: none;
         }
-
         .card {
           max-width: 90%;
         }
@@ -227,21 +214,11 @@
           font-size: 0.8rem;
           padding: 8px 16px;
         }
-
-        .content-container {
-          max-width: 100%; /* 寬度占滿螢幕 */
-          padding: 0 20px; /* 增加左右內邊距 */
+        .download-btn {
+          width: 90%;
         }
-        .submit-btn {
-          max-width: 50%; /* 按鈕寬度占滿容器 */
-        }
-        .content-container label {
-          font-size: 12px; /* 字體縮小 */
-        }
-        .content-container input,
-        .content-container textarea {
-          font-size: 12px; /* 輸入框字體縮小 */
-          padding: 20px; /* 減少內邊距 */
+        #demo {
+          max-width: 100%;
         }
       }
     </style>

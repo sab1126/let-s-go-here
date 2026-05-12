@@ -219,10 +219,22 @@
         color: #333;
       }
 
+      /* 卡片容器間距（桌機版） */
+      #cards-container {
+        padding-left: 200px;
+        padding-right: 200px;
+      }
+
       /* RWD 設計 */
       @media (min-width: 992px) {
         .navbar-nav .nav-item {
-          margin: 0 30px; /* 每個導航項目增加更多間距 */
+          margin: 0 30px;
+        }
+      }
+      @media (max-width: 1200px) {
+        #cards-container {
+          padding-left: 80px;
+          padding-right: 80px;
         }
       }
       @media (max-width: 768px) {
@@ -230,15 +242,26 @@
           font-size: 2rem;
         }
         .navbar-nav .nav-link::after {
-          content: none; /* 移除偽元素 */
+          content: none;
         }
-
         .card-title {
           font-size: 0.9rem;
         }
-
         .btn {
           font-size: 0.8rem;
+        }
+        .swiper-slide img {
+          width: 90%;
+        }
+        .swiper-button-prev {
+          left: 3%;
+        }
+        .swiper-button-next {
+          right: 3%;
+        }
+        #cards-container {
+          padding-left: 20px;
+          padding-right: 20px;
         }
       }
       @media (max-width: 576px) {
@@ -246,16 +269,27 @@
           font-size: 1.8rem;
         }
         .navbar-nav .nav-link::after {
-          content: none; /* 移除偽元素 */
+          content: none;
         }
-
         .card {
           max-width: 90%;
         }
-
         .btn {
           font-size: 0.8rem;
           padding: 8px 16px;
+        }
+        .swiper-slide img {
+          width: 100%;
+        }
+        .swiper-button-prev {
+          left: 5px;
+        }
+        .swiper-button-next {
+          right: 5px;
+        }
+        #cards-container {
+          padding-left: 10px;
+          padding-right: 10px;
         }
       }
     </style>
@@ -459,10 +493,6 @@
               prevEl: ".swiper-button-prev",
             },
           });
-
-          // 設置卡片容器的左右內邊距
-          cardsContainer.style.paddingLeft = "200px";
-          cardsContainer.style.paddingRight = "200px";
 
           // 從第二個工作表創建篩選按鈕
           function createFilterButtonsFromSecondSheet() {
